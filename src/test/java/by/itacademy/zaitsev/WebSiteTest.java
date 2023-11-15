@@ -14,6 +14,12 @@ public class WebSiteTest {
     WebDriver driver = new ChromeDriver();
     driver.manage().window().maximize();
     driver.get("https://www.21vek.by/");
+    Thread.sleep(4000);
+
+    String enterButtonCookie = "//*[@id=\"modal-cookie\"]/div/div[2]/div/button[3]/div";
+    By enterButtonCookieBy = By.xpath(enterButtonCookie);
+    WebElement enterButtonCookieWebElement = driver.findElement(enterButtonCookieBy);
+    enterButtonCookieWebElement.click();
 
     String accountButton = "//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button/span";
     By accountButtonBy = By.xpath(accountButton);
@@ -24,29 +30,34 @@ public class WebSiteTest {
     By enterButtonBy = By.xpath(enterButton);
     WebElement enterButtonWebElement = driver.findElement(enterButtonBy);
     enterButtonWebElement.click();
+    Thread.sleep(4000);
 
     String buttonModule = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[3]/button/div";
     By buttonModuleBy = By.xpath(buttonModule);
     WebElement buttonModuleWebElement = driver.findElement(buttonModuleBy);
     buttonModuleWebElement.click();
 
-    String errorMessage = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[1]/div[3]/span[2]";
-    By errorMessageBy = By.xpath(errorMessage);
-    WebElement errorMessageWebElement = driver.findElement(errorMessageBy);
-    String actual = errorMessageWebElement.getText();
+    String errorMessageLogin = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[1]/div[3]/span[2]";
+    By errorMessageLoginBy = By.xpath(errorMessageLogin);
+    WebElement errorMessageLoginWebElement = driver.findElement(errorMessageLoginBy);
+    String actual = errorMessageLoginWebElement.getText();
     String expected = "Электронная почта не указана";
     Assertions.assertEquals("Электронная почта не указана", actual);
-}
 
-    @Test
-            public void test21vek1 () throws InterruptedException {
+    Thread.sleep(4000);
 
-    String errorMessagePassword = "//*[@id="default-:R2mm:-modal"]/div/div/div[2]/div/div/form/div/div[2]/div[3]/span[2]";
+    String errorMessagePassword = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[2]/div[3]/span[2]";
     By errorMessagePasswordBy = By.xpath(errorMessagePassword);
     WebElement errorMessagePasswordWebElement = driver.findElement(errorMessagePasswordBy);
-    String actual = errorMessagePasswordWebElement.getText();
-    String expected = "Пароль не указан";
+    actual = errorMessagePasswordWebElement.getText();
+    expected = "Пароль не указан";
+    Assertions.assertEquals("Пароль не указан", actual);
+
+    Thread.sleep(4000);
+    driver.quit();
 
 
 }
+
 }
+
