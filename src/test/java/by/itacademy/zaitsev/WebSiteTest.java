@@ -98,14 +98,62 @@ public class WebSiteTest {
 
     Thread.sleep(4000);
     driver.quit();
-
-
-
-
-
-
-
-
 }
+
+@Test
+
+public void Test21VekWithNonExistentUser () throws InterruptedException {
+    WebDriver driver = new ChromeDriver();
+    driver.manage().window().maximize();
+    driver.get("https://www.21vek.by/");
+    Thread.sleep(4000);
+
+    String enterButtonCookie = "//*[@id=\"modal-cookie\"]/div/div[2]/div/button[3]/div";
+    By enterButtonCookieBy = By.xpath(enterButtonCookie);
+    WebElement enterButtonCookieWebElement = driver.findElement(enterButtonCookieBy);
+    enterButtonCookieWebElement.click();
+
+    String accountButton = "//*[@id=\"header\"]/div/div[3]/div/div[3]/div/div/div/button/span";
+    By accountButtonBy = By.xpath(accountButton);
+    WebElement accountButtonWebElement = driver.findElement(accountButtonBy);
+    accountButtonWebElement.click();
+
+    String enterButton = "//*[@id=\"userToolsDropDown\"]/div/div[1]/div[2]/button/div/span";
+    By enterButtonBy = By.xpath(enterButton);
+    WebElement enterButtonWebElement = driver.findElement(enterButtonBy);
+    enterButtonWebElement.click();
+    Thread.sleep(4000);
+
+    String inputEmailXpath = "//*[@id=\"login-email\"]";
+    By inputEmailXpathBy = By.xpath(inputEmailXpath);
+    WebElement inputEmailWebElement = driver.findElement(inputEmailXpathBy);
+    inputEmailWebElement.sendKeys("az.pomocnik@gmail.com");
+    Thread.sleep(4000);
+
+    String inputPasswordXpath = "//*[@id=\"login-password\"]";
+    By inputPasswordXpathBy = By.xpath(inputPasswordXpath);
+    WebElement inputPasswordWebElement = driver.findElement(inputPasswordXpathBy);
+    inputPasswordWebElement.sendKeys("ArtemZaitsev");
+    Thread.sleep(4000);
+
+    String buttonModule = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[3]/button/div";
+    By buttonModuleBy = By.xpath(buttonModule);
+    WebElement buttonModuleWebElement = driver.findElement(buttonModuleBy);
+    buttonModuleWebElement.click();
+    Thread.sleep(4000);
+
+    String errorMessageText = "//*[@id=\"default-:R2mm:-modal\"]/div/div/div[2]/div/div/form/div/div[1]/div[3]/span[2]/span";
+    By errorMessageTextBy = By.xpath(errorMessageText);
+    WebElement errorMessageTextWebElement = driver.findElement(errorMessageTextBy);
+    String actualErrorMessageText = errorMessageTextWebElement.getText();
+    String expectedErrorMessageText = "Нет такого аккаунта. \n" +
+            "Зарегистрироваться?";
+    Assertions.assertEquals(actualErrorMessageText, expectedErrorMessageText);
+
+    Thread.sleep(4000);
+    driver.quit();
+}
+
+
 }
 
