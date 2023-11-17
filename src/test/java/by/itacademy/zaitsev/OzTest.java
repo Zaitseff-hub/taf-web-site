@@ -1,5 +1,6 @@
 package by.itacademy.zaitsev;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,45 +16,48 @@ public class OzTest {
         driver.get("https://oz.by/");
         Thread.sleep(3000);
 
-        String buttonCookies = "/html/body/div[5]/div[2]/button[1]";
-        By buttonCookiesBy = By.xpath(buttonCookies);
-        WebElement buttonCookiesWebElement = driver.findElement(buttonCookiesBy);
+        WebElement buttonCookiesWebElement = driver.findElement(By.xpath(OzPage.buttonCookies));
         buttonCookiesWebElement.click();
 
-        String enterButton = "//*[@id=\"top-page\"]/header/div[1]/div/div[1]/a";
-        By enterButtonBy = By.xpath(enterButton);
-        WebElement enterButtonWebElement = driver.findElement(enterButtonBy);
+        WebElement enterButtonWebElement = driver.findElement(By.xpath(OzPage.enterButton));
         enterButtonWebElement.click();
 
-        String emailButton = "//*[@id=\"loginFormLoginEmailLink\"]";
-        By emailButtonBy = By.xpath(emailButton);
-        WebElement emailButtonWebElement = driver.findElement(emailButtonBy);
+        WebElement emailButtonWebElement = driver.findElement(By.xpath(OzPage.emailButton));
         emailButtonWebElement.click();
 
-        String loginFormMail = "//*[@id=\"loginForm\"]/div[2]/div[1]/div[1]/input";
-        By loginFormMailBy = By.xpath(loginFormMail);
-        WebElement loginFormWebElement = driver.findElement(loginFormMailBy);
+        WebElement loginFormWebElement = driver.findElement(By.xpath(OzPage.loginFormMail));
         loginFormWebElement.sendKeys("az.pomocnik@gmail.com");
 
-        String loginFormPassword = "//*[@id=\"loginForm\"]/div[2]/div[1]/div[2]/input";
-        By loginFormPasswordBy = By.xpath(loginFormPassword);
-        WebElement loginFormPasswordWebElement = driver.findElement(loginFormPasswordBy);
+        WebElement loginFormPasswordWebElement = driver.findElement(By.xpath(OzPage.loginFormPassword));
         loginFormPasswordWebElement.sendKeys("ArtemZaitsev");
 
-        String enterButtonLoginForm = "//*[@id=\"loginForm\"]/button";
-        By enterButtonLoginFormBy = By.xpath(enterButtonLoginForm);
-        WebElement enterButtonLoginFormWebElement = driver.findElement(enterButtonLoginFormBy);
+        WebElement enterButtonLoginFormWebElement = driver.findElement(By.xpath(OzPage.enterButtonLoginForm));
         enterButtonLoginFormWebElement.click();
 
-        String emailNotRegistered = "//*[@id=\"test\"]/div/div";
-        By emailNotRegistred = By.xpath(emailNotRegistered);
-        WebElement emailNotRegistredWebElement = driver.findElement(emailNotRegistred);
+        WebElement emailNotRegistredWebElement = driver.findElement(By.xpath(OzPage.emailNotRegistered));
         String actualEmailNotRegistered = emailNotRegistredWebElement.getText();
         String expectedEmailNotRegistered = "Адрес электронной почты не зарегистрирован. \n" + "Зарегистрироваться";
 
         Thread.sleep(3000);
         driver.quit();
+    }
+    @Test
+    public void testWithComeInEqualsEnter () throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://oz.by/");
+        Thread.sleep(3000);
 
+        WebElement comeInWebElement = driver.findElement(By.xpath(OzPage.comeInButton));
+        comeInWebElement.click();
+
+        WebElement textEnterWebElement = driver.findElement(By.xpath(OzPage.textEnter));
+        String actualTextEnterWebElement = textEnterWebElement.getText();
+        String expectedTextEnterWebElement = "Вход";
+        Assertions.assertEquals(actualTextEnterWebElement, expectedTextEnterWebElement);
+
+        Thread.sleep(3000);
+        driver.quit();
 
     }
 }
