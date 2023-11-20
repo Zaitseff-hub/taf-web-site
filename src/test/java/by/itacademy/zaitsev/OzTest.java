@@ -14,29 +14,24 @@ public class OzTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://oz.by/");
+        OzPage oz = new OzPage(driver);
+
+        oz.clickButtonCookies();
         Thread.sleep(3000);
 
-        WebElement buttonCookiesWebElement = driver.findElement(By.xpath(OzPage.buttonCookies));
-        buttonCookiesWebElement.click();
+        oz.clickEnterButton();
 
-        WebElement enterButtonWebElement = driver.findElement(By.xpath(OzPage.enterButton));
-        enterButtonWebElement.click();
+        oz.clickEmailButton();
 
-        WebElement emailButtonWebElement = driver.findElement(By.xpath(OzPage.emailButton));
-        emailButtonWebElement.click();
+        oz.sendKeysLoginFormMail("az.pomocnik@gmail.com");
 
-        WebElement loginFormWebElement = driver.findElement(By.xpath(OzPage.loginFormMail));
-        loginFormWebElement.sendKeys("az.pomocnik@gmail.com");
+        oz.sendKeysLoginFormPassword("ArtemZaitsev");
 
-        WebElement loginFormPasswordWebElement = driver.findElement(By.xpath(OzPage.loginFormPassword));
-        loginFormPasswordWebElement.sendKeys("ArtemZaitsev");
+        oz.clickEnterButtonLoginForm();
 
-        WebElement enterButtonLoginFormWebElement = driver.findElement(By.xpath(OzPage.enterButtonLoginForm));
-        enterButtonLoginFormWebElement.click();
+        Thread.sleep(1000);
 
-        WebElement emailNotRegistredWebElement = driver.findElement(By.xpath(OzPage.emailNotRegistered));
-        String actualEmailNotRegistered = emailNotRegistredWebElement.getText();
-        String expectedEmailNotRegistered = "Адрес электронной почты не зарегистрирован. \n" + "Зарегистрироваться";
+        Assertions.assertEquals("Адрес электронной почты не зарегистрирован. Зарегистрироваться", oz.emailNotRegistered());
 
         Thread.sleep(3000);
         driver.quit();
@@ -46,15 +41,15 @@ public class OzTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://oz.by/");
+        OzPage oz = new OzPage(driver);
         Thread.sleep(3000);
 
-        WebElement comeInWebElement = driver.findElement(By.xpath(OzPage.comeInButton));
-        comeInWebElement.click();
+        WebElement enterButtonWebElement = driver.findElement(By.xpath(OzPage.enterButton));
+        enterButtonWebElement.click();
 
         WebElement textEnterWebElement = driver.findElement(By.xpath(OzPage.textEnter));
         String actualTextEnterWebElement = textEnterWebElement.getText();
-        String expectedTextEnterWebElement = "Вход";
-        Assertions.assertEquals(actualTextEnterWebElement, expectedTextEnterWebElement);
+        Assertions.assertEquals("Вход", actualTextEnterWebElement);
 
         Thread.sleep(3000);
         driver.quit();
